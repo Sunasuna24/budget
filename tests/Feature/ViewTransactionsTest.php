@@ -9,11 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ViewTransactionsTest extends TestCase
 {
+    use DatabaseMigrations;
+ 
     /** @test */
     function 全てのトランザクションを表示する()
     {
         $transaction = factory('App\Transaction')->create();
 
-        $this->get('/tranasctions')->assertSee($transaction->description);
+        $this->get('/transactions')->assertSee($transaction->description);
     }
 }
