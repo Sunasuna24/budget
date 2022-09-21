@@ -19,5 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/transactions/{category?}', 'TransactionsController@index');
+Route::get('/transactions/create', 'TransactionsController@create');
 Route::post('/transactions', 'TransactionsController@store');
+
+Route::get('/transactions/{category?}', 'TransactionsController@index');
