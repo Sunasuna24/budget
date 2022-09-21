@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
-    public function index(Category $category = null)
+    public function index(Category $category)
     {
-        $transactions = $category->exists ? Transaction::where('category_id', $category->id)->get() : Transaction::all();
+        $transactions = Transaction::byCategory($category)->get();
         return view('transactions.index', compact('transactions'));
+    }
+
+    public function store(Request $request)
+    {
+        Transaction::create($request->all());
+        return redirect('/transactions');
     }
 }
