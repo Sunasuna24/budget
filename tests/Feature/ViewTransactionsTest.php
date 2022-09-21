@@ -20,4 +20,16 @@ class ViewTransactionsTest extends TestCase
             ->assertSee($transaction->description)
             ->assertSee($transaction->category->name);
     }
+
+    /** @test */
+    function カテゴリで取引をフィルタできる()
+    {
+        $category = factory('App\Category')->create();
+        $transaction = factory('App\Transaction')->create(['category_id' => $category->id]);
+        $other_transaction = factory('App\Transaction')->create();
+
+        $this->get('/transactions/' . $category->slug)
+            ->assertSee($transaction->description)
+            ->assertDontSee($other_transaction->description);
+    }
 }

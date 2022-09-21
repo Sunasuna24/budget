@@ -35,7 +35,9 @@ $factory->define(App\Transaction::class, function (Faker\Generator $faker) {
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Category::class, function (Faker\Generator $faker) {
+    $name = $faker->word;
     return [
-        'name' => $faker->word
+        'name' => $name,
+        'slug' => str_slug($name)
     ];
 });
