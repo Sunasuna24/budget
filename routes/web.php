@@ -22,5 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/transactions/create', 'TransactionsController@create');
 Route::post('/transactions', 'TransactionsController@store');
 Route::put('/transactions/{transaction}', 'TransactionsController@update');
+Route::get('/transactions/{transaction}', 'TransactionsController@edit');
 
 Route::get('/transactions/{category?}', 'TransactionsController@index');
