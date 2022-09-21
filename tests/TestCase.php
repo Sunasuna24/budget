@@ -44,6 +44,16 @@ abstract class TestCase extends BaseTestCase
         $this->post('/logout');
         return $this;
     }
+
+    protected function make($class, $overrides = [], $times = null)
+    {
+        return make($class, array_merge(['user_id' => $this->user->id], $overrides), $times);
+    }
+
+    protected function create($class, $overrides = [], $times = null)
+    {
+        return create($class, array_merge(['user_id' => $this->user->id], $overrides), $times);
+    }
 }
 
 class PassThroughHandler extends Handler

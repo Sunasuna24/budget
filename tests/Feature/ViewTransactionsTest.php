@@ -14,7 +14,7 @@ class ViewTransactionsTest extends TestCase
     /** @test */
     function 全てのトランザクションを表示する()
     {
-        $transaction = create('App\Transaction');
+        $transaction = $this->create('App\Transaction');
 
         $this->get('/transactions')
             ->assertSee($transaction->description)
@@ -25,8 +25,8 @@ class ViewTransactionsTest extends TestCase
     function カテゴリで取引をフィルタできる()
     {
         $category = create('App\Category');
-        $transaction = create('App\Transaction', ['category_id' => $category->id]);
-        $other_transaction = create('App\Transaction');
+        $transaction = $this->create('App\Transaction', ['category_id' => $category->id]);
+        $other_transaction = $this->create('App\Transaction');
 
         $this->get('/transactions/' . $category->slug)
             ->assertSee($transaction->description)

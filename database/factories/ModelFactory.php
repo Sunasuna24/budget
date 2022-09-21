@@ -30,6 +30,9 @@ $factory->define(App\Transaction::class, function (Faker\Generator $faker) {
         'amount' => $faker->numberBetween(5, 10),
         'category_id' => function () {
             return create(App\Category::class)->id;
+        },
+        'user_id' => function () {
+            return create(App\User::class)->id;
         }
     ];
 });

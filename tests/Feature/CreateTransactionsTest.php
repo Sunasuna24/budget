@@ -10,11 +10,27 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CreateTransactionsTest extends TestCase
 {
     use DatabaseMigrations;
+    
+    /** @test */
+    function ログインしているユーザーのみ利用できる()
+    {
+        $this->withExceptionHandling()->signOut()->get('/transactions')->assertRedirect('/login');
+    }
+
+    /** @test */
+    function ログインしているユーザーの取引のみ表示する()
+    {
+        $other_user = create('App\User');
+        $transaction = create('App\Transaction', ['user_id' => $this->user->id]);
+        $other_transaction = create('App\Transaction', ['user_id' => $other_user->id]);
+
+        $this->get('/transactions')->assertSee($transaction->description)->assertDontSee($other_transaction->description);
+    }
 
     /** @test */
     function 取引を作成する()
     {
-        $transaction = make('App\Transaction');
+        $transaction = $this->make('App\Transaction');
 
         $this->post('/transactions', $transaction->toArray())
             ->assertRedirect('/transactions');
