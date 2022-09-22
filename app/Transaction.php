@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Category;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -35,5 +36,11 @@ class Transaction extends Model
         if ($category->exists) {
             $query->where('category_id', $category->id);
         }
+    }
+
+    public function scopeByMonth($query, $month = 'this month')
+    {
+        $query->where('created_at', '>=', Carbon::parse('first day of ' . $month))
+            ->where('created_at', '<=', Carbon::parse('last day of ' . $month));
     }
 }
