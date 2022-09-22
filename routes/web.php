@@ -27,3 +27,5 @@ Route::post('/transactions', 'TransactionsController@store');
 Route::put('/transactions/{transaction}', 'TransactionsController@update');
 Route::get('/transactions/{transaction}', 'TransactionsController@edit');
 Route::delete('/transactions/{transaction}', 'TransactionsController@destroy');
+
+Route::get('/categories', 'CategoriesController@index');
