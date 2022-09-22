@@ -42,6 +42,9 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
     $name = $faker->word;
     return [
         'name' => $name,
-        'slug' => str_slug($name)
+        'slug' => str_slug($name),
+        'user_id' => function () {
+            return create(App\User::class)->id;
+        }
     ];
 });
