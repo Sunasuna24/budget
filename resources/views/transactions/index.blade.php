@@ -12,6 +12,7 @@
                             <th>Description</th>
                             <th>Category</th>
                             <th>Amount</th>
+                            <th>Remove</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,10 +22,18 @@
                             <td><a href="/transactions/{{ $transaction->id }}">{{ $transaction->description }}</a></td>
                             <td>{{ $transaction->category->name }}</td>
                             <td>{{ $transaction->amount }}</td>
+                            <td>
+                                <form action="/transactions" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger btn-xs">Remove</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $transactions->links() }}
             </div>
         </div>
     </div>

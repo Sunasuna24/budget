@@ -15,7 +15,7 @@ class TransactionsController extends Controller
 
     public function index(Category $category)
     {
-        $transactions = Transaction::byCategory($category)->get();
+        $transactions = Transaction::byCategory($category)->paginate();
         return view('transactions.index', compact('transactions'));
     }
 
@@ -57,5 +57,12 @@ class TransactionsController extends Controller
         $categories = Category::all();
 
         return view('transactions.edit', compact('transaction', 'categories'));
+    }
+
+    public function destroy(Transaction $transaction)
+    {
+        $transaction->delete();
+
+        return redirect('/transactions');
     }
 }
